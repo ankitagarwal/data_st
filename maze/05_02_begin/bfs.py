@@ -10,7 +10,22 @@ from queue_ll import Queue
 
 
 def bfs(maze, start, goal):
-    pass
+    q = Queue()
+    q.enqueue(start)
+    predecessors = {start: None}
+
+    while not q.is_empty():
+        cur = q.dequeue()
+        if cur == goal:
+            return get_path(predecessors, start, goal)
+        for direction in ["up", "right", "down", "left"]:
+            row_offset = offsets[direction][0]
+            col_offset = offsets[direction][1]
+            neighbour = (cur[0] + row_offset, cur[1] + col_offset)
+            if is_legal_pos(maze, neighbour) and neighbour not in predecessors:
+                q.enqueue(neighbour)
+                predecessors[neighbour] = cur
+    return None
 
 
 if __name__ == "__main__":
@@ -19,6 +34,7 @@ if __name__ == "__main__":
     start_pos = (0, 0)
     goal_pos = (2, 2)
     result = bfs(maze, start_pos, goal_pos)
+    print(result)
     assert result == [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2)]
 
     # Test 2
