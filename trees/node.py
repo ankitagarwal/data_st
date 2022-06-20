@@ -71,7 +71,7 @@ class Node:
         if nodes is None:
             nodes = []
         if depth == 0:
-            nodes.append(self.value)
+            nodes.append(self)
             return nodes
 
         if self.left:
@@ -113,7 +113,8 @@ class Node:
             l = self.left.value
         if self.right:
             r = self.right.value
-        return "Node {}, left {}, right {}".format(self.value, l, r)
+        return str(self.value)
+        # return "Node {}, left {}, right {}".format(self.value, l, r)
 
 
 class Tree:
@@ -133,7 +134,7 @@ class Tree:
             return str(self.root) + " --L-- " + str(templ) + " --R-- " + str(tempr) + "\n"
 
     def search(self, target):
-        return self.root.search(target)
+        pass
 
     def traverse_preorder(self):
         self.root.traverse_preorder()
@@ -161,7 +162,8 @@ class Tree:
         if n is None:
             return '_'+(' '*spacing)
         spacing = spacing-len(str(n))+1
-        return str(n)+(' '*spacing)
+        balanced = '(B)' if n.is_balanced() else '(U)'
+        return str(n) + balanced + (' '*spacing)
 
     def print(self, label=''):
         print(self.name+' '+label)
