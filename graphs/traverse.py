@@ -53,8 +53,10 @@ def dfs(g, start):
     predecessors = {start: None}
     while not s.is_empty():
         node = s.pop()
+        # print("processing ", node)
         for n in g.get_adjacent_vertices(node):
             if n not in predecessors:
+                s.push(n)
                 predecessors[n] = node
 
     print(predecessors)
@@ -75,7 +77,7 @@ if __name__ == "__main__":
     g.add_edge(3, 4)
     g.add_edge(6, 8)
     bfs(g, 2)
-    dfs(g, 2)
+    dfs(g, 0)
 
     print("-----------------------------------------------")
     g = AdjancencyMatrixGraph(9, True)
